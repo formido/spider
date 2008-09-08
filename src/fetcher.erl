@@ -186,9 +186,14 @@ extract_links(X) ->
 %% we need a full and complete url parser
 clean_links(Links, SourceLink) -> 
     lists:map(fun(Link) -> 
-	IsColonFree = string:chr(Link,$:) == 0,
+        %% Presence of colon means we have a fully qualified link with some
+        %% some scheme or another. Further on, we use this to filter out schemed
+        %% links that aren't http. Absence of colon means we should have 
+        %% a domain absolute or relative; in fact, there are exceptions we
+        %% don't currently handle correctly.
+	IsSchemeFree = string:chr(Link,$:) == 0,
 	case string:rstr(Link,"http://") of
-	    0 when IsColonFree -> url_parse:qualify(SourceLink, Link);
+	    0 when IsSchemeFree -> url_parse:qualify(SourceLink, Link);
 	    1 -> Link;
 	    _ -> dud
 	end
