@@ -179,7 +179,7 @@ extract_links(X) ->
 
 
 %% Updated to more cleanly handle link filtering. Specifically excludes
-%% fully qualified links that don't use the http schem and calls 'qualify/2'
+%% fully qualified links that don't use the http scheme and calls 'qualify/2'
 %% to mediate domain absolute, relative, and fully qualified links. There
 %% are still many sources of false positives, such as links with anchor 
 %% fragments, and perhaps I'll add more special casing, but ultimately
