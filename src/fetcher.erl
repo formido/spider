@@ -179,16 +179,21 @@ extract_links(X) ->
 
 
 %% Updated to more cleanly handle link filtering. Specifically excludes
-%% fully qualified links that don't use the http schem and calls 'qualify/2'
+%% fully qualified links that don't use the http scheme and calls 'qualify/2'
 %% to mediate domain absolute, relative, and fully qualified links. There
 %% are still many sources of false positives, such as links with anchor 
 %% fragments, and perhaps I'll add more special casing, but ultimately
-%% we need a full and complete url parser
+%% we need a full and complete url parser.
 clean_links(Links, SourceLink) -> 
     lists:map(fun(Link) -> 
-	IsColonFree = string:chr(Link,$:) == 0,
+    %% Presence of colon means we have a fully qualified link with some
+    %% scheme or another. Further on, we use this to filter out schemed
+    %% links that aren't http. Absence of colon means we should have 
+    %% a domain absolute or relative link; in fact, there are exceptions
+    %% we don't currently handle correctly.
+	IsSchemeFree = string:chr(Link,$:) == 0,
 	case string:rstr(Link,"http://") of
-	    0 when IsColonFree -> url_parse:qualify(SourceLink, Link);
+	    0 when IsSchemeFree -> url_parse:qualify(SourceLink, Link);
 	    1 -> Link;
 	    _ -> dud
 	end
