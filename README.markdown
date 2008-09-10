@@ -10,9 +10,9 @@ As far as I know, this is the only free, open source, publicly available web cra
 
 1. Jailing to directory, subdomain, and host. Easy to implement on top of regex sandbox.
 2. Unit test for regex sandbox to work out general approach.
-* Use framework like eunit?
-* Use test/0 and Mochikit's automatic reload module?
-* Use another spider's result as reference
+   * Use framework like eunit?
+   * Use test/0 and Mochikit's automatic reload module?
+   * Use another spider's result as reference
 3. Add interesting examples to Wiki.
 4. Switch build process to regular makefile (as Joe Armstrong prefers, but that's not why ;) ).
 5. Specify user-agent.
@@ -41,16 +41,16 @@ As far as I know, this is the only free, open source, publicly available web cra
 27. Add simple fun example to README.
 28. Cancel crawl.
 29. Data to be passed to aftercrawl callback:
-* headers
-* source
-* parsed source
-* last-modified
-* etag
-* httpstatus
-* httpreason
-* content-type
-* content-encoding
-* list of redirect urls (and meta refreshes?)
+    * headers
+    * source
+    * parsed source
+    * last-modified
+    * etag
+    * httpstatus
+    * httpreason
+    * content-type
+    * content-encoding
+    * list of redirect urls (and meta refreshes?)
 30. Handle soft 404s.
 31. Does google url lop off duplicate url params?
 
