@@ -26,6 +26,7 @@
 -define(HEADERS(Host),
         [{"Host", Host},
          {"User-Agent", "a-priori spiderbot (michael@codeshack.ca)"},
+	 {"Accept-Encoding","gzip"},
          {"Accept", "text/xml"}]).
 -record(state, {}).
 
@@ -119,9 +120,10 @@ process_task(Task) ->
 
     case http:request(get, {Url, ?HEADERS(Host)},
                       [], [{body_format, string}]) of
-        {ok, {{_Version, 200, _Reason}, _Headers, Body}} ->
-            Parsed = mochiweb_html:parse(Body),
-	    
+        {ok, {{_Version, 200, _Reason}, Headers, Body}} ->
+	    Html = unzip(Body, Headers),
+            Parsed = mochiweb_html:parse(Html),
+
 	    % io:format("testing"),
 
 	    % Extracts all links from the document and ensures they
@@ -143,6 +145,14 @@ process_task(Task) ->
             #result{status=failure, code=Other}
     end.
 
+unzip(Response, Headers) ->
+    case lists:keysearch("content-encoding", 1, Headers) of
+	{value, {Key, Value}} when Value =:= "gzip" -> 
+	    zlib:gunzip(Response);
+    _ -> 
+            Response
+    end.
+	     
 extract_document_links(Html, URL) ->
     BinaryLinks = lists:flatten(extract_links(Html)),
     StringLinks = lists:map(fun(X) -> binary_to_list(X) end,
