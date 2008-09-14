@@ -1,8 +1,12 @@
+#include <cstdio>
+#include <unistd.h>
+#include "erl_comm.h"
+
 /* erl_comm.c */
 
 typedef unsigned char byte;
 
-read_cmd(byte *buf)
+int read_cmd(byte *buf)
 {
   int len;
 
@@ -12,7 +16,7 @@ read_cmd(byte *buf)
   return read_exact(buf, len);
 }
 
-write_cmd(byte *buf, int len)
+int write_cmd(byte *buf, int len)
 {
   byte li;
 
@@ -25,7 +29,7 @@ write_cmd(byte *buf, int len)
   return write_exact(buf, len);
 }
 
-read_exact(byte *buf, int len)
+int read_exact(byte *buf, int len)
 {
   int i, got=0;
 
@@ -38,7 +42,7 @@ read_exact(byte *buf, int len)
   return(len);
 }
 
-write_exact(byte *buf, int len)
+int write_exact(byte *buf, int len)
 {
   int i, wrote = 0;
 
