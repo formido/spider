@@ -9,7 +9,7 @@ sources = src/port.cc src/erl_comm.c src/gurl.cc src/url_parse.cc src/url_util.c
 all: bin/port
 
 bin/port: $(objects) bin
-	g++ -o bin/port -Isrc -I$(ERLANG_LIB_DIR_erl_interface)/include -L$(ERLANG_LIB_DIR_erl_interface)/lib -L/opt/local/lib -licudata -licui18n -licuio -licule -liculx -licutu -licuuc -lerl_interface -lei $(objects)
+	g++ -o bin/port -Isrc -I$(ERLANG_LIB_DIR_erl_interface)/include -L$(ERLANG_LIB_DIR_erl_interface)/lib $(ICU_LIBS) -lerl_interface -lei $(objects)
 
 bin:
 	mkdir bin
