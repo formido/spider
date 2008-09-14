@@ -8,8 +8,11 @@ sources = src/port.cc src/erl_comm.c src/gurl.cc src/url_parse.cc src/url_util.c
 
 all: bin/port
 
-bin/port: $(objects) 
+bin/port: $(objects) bin
 	g++ -o bin/port -Isrc -I$(ERLANG_LIB_DIR)/erl_interface-3.5.5.3/include -L$(ERLANG_LIB_DIR)/erl_interface-3.5.5.3/lib -L/opt/local/lib -licudata -licui18n -licuio -licule -liculx -licutu -licuuc -lerl_interface -lei $(objects)
+
+bin:
+	mkdir bin
 
 # list the dependencies for object files - those header files which help build objects
 
