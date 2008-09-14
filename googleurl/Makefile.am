@@ -9,7 +9,7 @@ sources = src/port.cc src/erl_comm.c src/gurl.cc src/url_parse.cc src/url_util.c
 all: bin/port
 
 bin/port: $(objects) bin
-	g++ -o bin/port -Isrc -I$(ERLANG_LIB_DIR)/erl_interface-3.5.5.3/include -L$(ERLANG_LIB_DIR)/erl_interface-3.5.5.3/lib -L/opt/local/lib -licudata -licui18n -licuio -licule -liculx -licutu -licuuc -lerl_interface -lei $(objects)
+	g++ -o bin/port -Isrc -I$(ERLANG_LIB_DIR_erl_interface)/include -L$(ERLANG_LIB_DIR_erl_interface)/lib -L/opt/local/lib -licudata -licui18n -licuio -licule -liculx -licutu -licuuc -lerl_interface -lei $(objects)
 
 bin:
 	mkdir bin
@@ -32,7 +32,7 @@ src/url_file.cc: src/url_parse_internal.h
 
 
 $(objects): $(sources)
-	g++ -c $(sources) -Isrc -I.. -I$(ERLANG_LIB_DIR)/erl_interface-3.5.5.3/include
+	g++ -c $(sources) -Isrc -I.. -I$(ERLANG_LIB_DIR_erl_interface)/include
 
 clean:
 	rm $(objects) bin/port
