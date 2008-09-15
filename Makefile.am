@@ -27,3 +27,5 @@ subdirs:
 
 clean:
 	rm -rf ebin/*
+	cd googleurl; make clean
+

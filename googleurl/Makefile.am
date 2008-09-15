@@ -1,4 +1,5 @@
 
+ICU_INCLUDE = $(ICU_PREFIX)/include
 
 objects = port.o erl_comm.o gurl.o url_parse.o url_util.o logging.o url_canon_etc.o url_canon_fileurl.o url_canon_host.o url_canon_internal.o url_canon_ip.o url_canon_mailtourl.o url_canon_path.o url_canon_pathurl.o url_canon_query.o url_canon_relative.o url_canon_stdurl.o url_parse_file.o url_canon_icu.o
 
@@ -9,7 +10,7 @@ sources = src/port.cc src/erl_comm.c src/gurl.cc src/url_parse.cc src/url_util.c
 all: bin/port
 
 bin/port: $(objects) bin
-	g++ -o bin/port -Isrc -I$(ERLANG_LIB_DIR_erl_interface)/include -L$(ERLANG_LIB_DIR_erl_interface)/lib $(ICU_LIBS) -lerl_interface -lei $(objects)
+	g++ -o bin/port -Isrc -I$(ICU_INCLUDE) -I$(ERLANG_LIB_DIR_erl_interface)/include -L$(ERLANG_LIB_DIR_erl_interface)/lib $(ICU_LIBS) -lerl_interface -lei $(objects)
 
 bin:
 	mkdir bin
@@ -32,7 +33,7 @@ src/url_file.cc: src/url_parse_internal.h
 
 
 $(objects): $(sources)
-	g++ -c $(sources) -Isrc -I.. -I$(ERLANG_LIB_DIR_erl_interface)/include
+	g++ -c $(sources) -Isrc -I.. -I$(ERLANG_LIB_DIR_erl_interface)/include -I$(ICU_INCLUDE)
 
 clean:
 	rm $(objects) bin/port

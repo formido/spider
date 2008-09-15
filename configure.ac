@@ -66,10 +66,15 @@ AC_DEFUN([AC_CHECK_ICU], [
             AC_MSG_CHECKING(ICU_LIBS)
             ICU_LIBS=`$ICU_CONFIG --ldflags`
             AC_MSG_RESULT($ICU_LIBS)
+
+	    AC_MSG_CHECKING(ICU_PREFIX)
+	    ICU_PREFIX=`$ICU_CONFIG --prefix`
+	    AC_MSG_RESULT($ICU_PREFIX)
         else
             ICU_CFLAGS=""
             ICU_CXXFLAGS=""
             ICU_LIBS=""
+	    ICU_PREFIX=""
             ## If we have a custom action on failure, don't print errors, but
             ## do set a variable so people can do so.
             ifelse([$3], ,echo "can't find ICU >= $1",)
@@ -78,6 +83,7 @@ AC_DEFUN([AC_CHECK_ICU], [
         AC_SUBST(ICU_CFLAGS)
         AC_SUBST(ICU_CXXFLAGS)
         AC_SUBST(ICU_LIBS)
+	AC_SUBST(ICU_PREFIX)
   fi
 
   if test $succeeded = yes; then
