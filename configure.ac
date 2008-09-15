@@ -10,8 +10,6 @@ AC_ERLANG_NEED_ERLC
 
 AC_ERLANG_NEED_ERL
 
-AC_ERLANG_SUBST_LIB_DIR
-
 AC_ERLANG_CHECK_LIB(erl_interface)
 
 # ===========================================================================
