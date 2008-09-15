@@ -1,5 +1,7 @@
 AC_INIT(src/spider_app.erl)
 
+AC_PREREQ(2.59c)
+
 AM_INIT_AUTOMAKE(spider,0.1)
 
 AC_PROG_CXX
@@ -10,7 +12,7 @@ AC_ERLANG_NEED_ERL
 
 AC_ERLANG_SUBST_LIB_DIR
 
-AC_ERLANG_CHECK_LIB([erl_interface])
+AC_ERLANG_CHECK_LIB(erl_interface)
 
 # ===========================================================================
 #              http://autoconf-archive.cryp.to/ac_check_icu.html
