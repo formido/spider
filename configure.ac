@@ -6,6 +6,12 @@ AM_INIT_AUTOMAKE(spider,0.1)
 
 AC_PROG_CXX
 
+m4_define([AC_LANG(Erlang)],
+[ac_ext=erl
+ac_compile='$ERLC $ERLCFLAGS -b beam conftest.$ac_ext >&AS_MESSAGE_LOG_FD'
+ac_link='$ERLC $ERLCFLAGS -b beam conftest.$ac_ext >&AS_MESSAGE_LOG_FD ; echo "[#]!/bin/sh" > conftest$ac_exeext ; AS_ECHO(["\"$ERL\" -run conftest start -run init stop -noshell"]) >> conftest$ac_exeext ; chmod +x conftest$ac_exeext'
+])
+
 AC_ERLANG_NEED_ERLC
 
 AC_ERLANG_NEED_ERL
