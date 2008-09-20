@@ -22,7 +22,7 @@ int main() {
 
   erl_init(NULL, 0); //Required line to initialize erl_interface
 
-  while (read_cmd(buf) > 0) {
+  while (read_cmd(&buf, buffer_size) > 0) {
     tuplep = erl_decode(buf);
     tuple1 = erl_element(1, tuplep);
 

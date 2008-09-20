@@ -6,14 +6,21 @@
 
 typedef unsigned char byte;
 
-int read_cmd(byte *buf)
+int read_cmd(byte** buf, int& buffer_size)
 {
   int len;
 
-  if (read_exact(buf, 2) != 2)
+  if (read_exact(*buf, 2) != 2)
     return(-1);
-  len = (buf[0] << 8) | buf[1];
-  return read_exact(buf, len);
+  len = ((*buf)[0] << 8) | (*buf)[1];
+
+  if(len > buffer_size){
+    buffer_size = len;
+    delete[] *buf;
+    *buf = new byte[buffer_size];
+  }
+
+  return read_exact(*buf, len);
 }
 
 int write_cmd(byte *buf, int len)

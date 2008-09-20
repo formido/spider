@@ -4,7 +4,7 @@
 
 typedef unsigned char byte;
 
-int read_cmd(byte *buf);
+int read_cmd(byte **buf, int& buffer_size);
 
 int write_cmd(byte *buf, int len);
 

@@ -158,9 +158,9 @@ extract_document_links(Html, URL) ->
     StringLinks = lists:map(fun(X) -> binary_to_list(X) end,
                             BinaryLinks),
     CleanedLinks = clean_links(StringLinks, URL),
-    
-    lists:filter(fun(dud) -> false;
-                    (_X) -> true
+%    io:format("DEBUG: cleaned links: ~p~n", [CleanedLinks]),
+    lists:filter(fun([$h,$t,$t,$p,$:,$/,$/|_]) -> true;
+                    (_X) -> false
                  end, CleanedLinks).
 
 
