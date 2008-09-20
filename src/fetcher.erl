@@ -157,7 +157,6 @@ extract_document_links(Html, URL) ->
     BinaryLinks = lists:flatten(extract_links(Html)),
     StringLinks = lists:map(fun(X) -> binary_to_list(X) end,
                             BinaryLinks),
-    % io:format("here"),
     CleanedLinks = clean_links(StringLinks, URL),
     
     lists:filter(fun(dud) -> false;
@@ -195,19 +194,7 @@ extract_links(X) ->
 %% fragments, and perhaps I'll add more special casing, but ultimately
 %% we need a full and complete url parser.
 clean_links(Links, SourceLink) -> 
-    lists:map(fun(Link) -> 
-    %% Presence of colon means we have a fully qualified link with some
-    %% scheme or another. Further on, we use this to filter out schemed
-    %% links that aren't http. Absence of colon means we should have 
-    %% a domain absolute or relative link; in fact, there are exceptions
-    %% we don't currently handle correctly.
-	IsSchemeFree = string:chr(Link,$:) == 0,
-	case string:rstr(Link,"http://") of
-	    0 when IsSchemeFree -> url_parse:qualify(SourceLink, Link);
-	    1 -> Link;
-	    _ -> dud
-	end
-    end,Links).
+    googleurl:canonicalize_links(SourceLink, Links).
 
 
 clean_document(List) when is_list(List) ->
